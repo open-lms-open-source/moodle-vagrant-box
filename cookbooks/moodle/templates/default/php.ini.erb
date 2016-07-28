@@ -1,0 +1,71 @@
+; priority=90
+
+[PHP]
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Customized php.ini for development purposes   ;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; http://php.net/date.timezone
+date.timezone = '<%= @date_timezone %>'
+
+; http://php.net/display-errors
+display_errors = On
+
+; http://php.net/html-errors
+html_errors = On
+
+; http://php.net/short-open-tag
+short_open_tag = Off
+
+; http://php.net/post-max-size
+post_max_size = 1000M
+
+; http://php.net/upload-max-filesize
+upload_max_filesize = 1000M
+
+; http://php.net/memory-limit
+memory_limit = 512M
+
+; http://php.net/log-errors
+log_errors = Off
+
+; http://php.net/error-log
+error_log = /var/log/php_errors.log
+
+; http://php.net/manual/en/info.configuration.php
+max_input_vars = 5001
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; OPCache http://docs.moodle.org/en/OPcache     ;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+opcache.enable = 1
+opcache.memory_consumption = 128
+opcache.max_accelerated_files = 4000
+opcache.revalidate_freq = 2
+opcache.use_cwd = 1
+opcache.validate_timestamps = 1
+opcache.save_comments = 1
+opcache.enable_file_override = 0
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; XDebug http://xdebug.org/docs/all_settings    ;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+xdebug.remote_enable=1
+xdebug.remote_connect_back=1
+xdebug.idekey=PHPSTORM
+xdebug.cli_color=1
+xdebug.var_display_max_depth=-1
+xdebug.var_display_max_data=-1
+xdebug.var_display_max_children=-1
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; XDebug Profiler                               ;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; xdebug.profiler_enable=0
+xdebug.profiler_enable_trigger=1 ; Set XDEBUG_PROFILE GET/POST parameter to 1
+xdebug.profiler_output_dir=/vagrant/xdebug-profiles
+xdebug.profiler_output_name=cachegrind.out.%t
