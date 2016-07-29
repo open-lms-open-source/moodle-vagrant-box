@@ -93,6 +93,11 @@ cookbook_file "/etc/mysql/conf.d/moodle.cnf" do
   notifies :restart, 'mysql_service[default]'
 end
 
+# This makes SQL accessible from the outside for MySQL clients, etc.
+execute "Grant SQL" do
+  command "mysql -u root --password=root -h 127.0.0.1 -e \"GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT OPTION;\""
+end
+
 #######################
 ###  CONFIGURE PHP  ###
 #######################
