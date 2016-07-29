@@ -7,56 +7,66 @@
 # All rights reserved - Do Not Redistribute
 #
 
-########################
-###  INSTALL APACHE  ###
-########################
+##########################
+###  INSTALL PACKAGES  ###
+##########################
 
-%w{apache2 libapache2-mod-php libapache2-mod-xsendfile}.each do |pkg|
+node['moodle']['packages'].each do |pkg|
   package pkg do
     action :install
   end
 end
 
-# Configuration file for xsendfile.
-template "/etc/apache2/conf-available/moodle-xsendfile.conf" do
-  source "xsendfile.conf.erb"
+########################
+###  INSTALL NGINX  ###
+########################
+
+# Create self signed certificate for SSL support.
+openssl_x509 '/etc/ssl/certs/nginx-selfsigned.crt' do
+  common_name 'moodle.dev'
+  org 'Blackboard'
+  org_unit 'Moodlerooms'
+  country 'US'
+end
+
+# Create dhparam for SSL support.
+openssl_dhparam '/etc/ssl/certs/dhparam.pem' do
+  key_length 2048
+end
+
+# Copy over self signed Nginx snippet, tells Nginx where to find the certificate.
+cookbook_file "/etc/nginx/snippets/self-signed.conf" do
+  source "self-signed.conf"
   owner "root"
   group "root"
   mode 0644
-  variables ({
-    :user => node['moodle']['user']
-  })
 end
 
-# Enable xsendfile configuration.
-execute "a2enconf moodle-xsendfile" do
-  command "sudo /usr/sbin/a2enconf moodle-xsendfile"
-end
-
-# Configuration file for extra ports.
-cookbook_file "/etc/apache2/conf-available/moodle-port.conf" do
-  source "port.conf"
+# Copy over SSL params Nginx snippet.
+cookbook_file "/etc/nginx/snippets/ssl-params.conf" do
+  source "ssl-params.conf"
   owner "root"
   group "root"
   mode 0644
 end
 
-# Enable port configuration.
-execute "a2enconf moodle-port" do
-  command "sudo /usr/sbin/a2enconf moodle-port"
-end
-
-# Enable Apache SSL.
-execute "a2enmod ssl" do
-  command "sudo /usr/sbin/a2enmod ssl"
-end
-
-# Run Apache as our user and group.
-ruby_block "Change Apache user and group" do
+# Run php-fpm as our user and group.
+ruby_block "Change php-fpm user and group" do
   block do
-    file = Chef::Util::FileEdit.new("/etc/apache2/envvars")
-    file.search_file_replace_line(/export APACHE_RUN_USER=www-data/,"export APACHE_RUN_USER="+node['moodle']['user'])
-    file.search_file_replace_line(/export APACHE_RUN_GROUP=www-data/,"export APACHE_RUN_GROUP="+node['moodle']['group'])
+    file = Chef::Util::FileEdit.new("/etc/php/7.0/fpm/pool.d/www.conf")
+    file.search_file_replace_line(/user = www-data/,"user = "+node['moodle']['user'])
+    file.search_file_replace_line(/group = www-data/,"group = "+node['moodle']['group'])
+    file.search_file_replace_line(/listen.owner = www-data/,"listen.owner = "+node['moodle']['user'])
+    file.search_file_replace_line(/listen.group = www-data/,"listen.group = "+node['moodle']['group'])
+    file.write_file
+  end
+end
+
+# Run Nginx as our user.
+ruby_block "Change nginx user" do
+  block do
+    file = Chef::Util::FileEdit.new("/etc/nginx/nginx.conf")
+    file.search_file_replace_line(/user www-data;/,"user "+node['moodle']['user']+";")
     file.write_file
   end
 end
@@ -81,16 +91,6 @@ cookbook_file "/etc/mysql/conf.d/moodle.cnf" do
   group "root"
   mode 0644
   notifies :restart, 'mysql_service[default]'
-end
-
-##########################
-###  INSTALL PACKAGES  ###
-##########################
-
-node['moodle']['packages'].each do |pkg|
-  package pkg do
-    action :install
-  end
 end
 
 #######################
@@ -131,31 +131,30 @@ file "/var/log/php_errors.log" do
   mode 0666
 end
 
+directory '/srv/xdebug-profiles' do
+  owner node['moodle']['user']
+  group node['moodle']['group']
+  mode 0777
+end
+
 #####################
 ###  MOODLE SITE  ###
 #####################
 
 # Create default site for Moodle.  Allow for customization by not overriding.
-template "/etc/apache2/sites-available/moodle.conf" do
-  source "vhost.conf.erb"
+template "/etc/nginx/sites-enabled/moodle" do
+  source "server.conf.erb"
   owner "root"
   group "root"
   mode 0644
   variables ({
-    :server_name => 'moodle.dev',
-    :server_alias => '*.vagrantshare.com',
-    :docroot => '/vagrant/www/moodle',
-    :name => 'moodle',
+    :server_name => 'moodle.dev *.vagrantshare.com',
+    :docroot => '/vagrant/www/moodle'
   })
 end
 
-# Enable the moodle site.
-execute "a2ensite moodle.conf" do
-  command "sudo /usr/sbin/a2ensite moodle.conf"
-end
-
-# Ensure moodledata directory exists in the home directory.
-directory '/home/' + node['moodle']['user'] + '/moodledata' do
+# Ensure moodledata directory exists in the srv directory.
+directory '/srv/moodledata' do
   owner node['moodle']['user']
   group node['moodle']['group']
   mode 0777
@@ -166,36 +165,23 @@ end
 ##########################
 
 # Create site for core moodle.
-template "/etc/apache2/sites-available/core-moodle.conf" do
-  source "vhost.conf.erb"
+template "/etc/nginx/sites-enabled/core-moodle" do
+  source "server.conf.erb"
   owner "root"
   group "root"
   mode 0644
   variables ({
     :server_name => 'core-moodle.dev',
-    :docroot => '/vagrant/www/core-moodle',
-    :name => 'core-moodle'
+    :docroot => '/vagrant/www/core-moodle'
   })
-end
-
-# Enable the core-moodle site.
-execute "a2ensite core-moodle.conf" do
-  command "sudo /usr/sbin/a2ensite core-moodle.conf"
 end
 
 ##################
 ###  WEBGRIND  ###
 ##################
 
-# Create base directory for webgrind.
-directory '/home/' + node['moodle']['user'] + '/www' do
-  owner node['moodle']['user']
-  group node['moodle']['group']
-  mode 0644
-end
-
 # Grab the webgrind code.
-git '/home/' + node['moodle']['user'] + '/www/webgrind' do
+git '/var/www/webgrind' do
   repository "https://github.com/jokkedk/webgrind.git"
   revision "v1.4.0"
 end
@@ -203,25 +189,19 @@ end
 # Compile the preprocessor to improve performance.
 execute "make webgrind" do
   command "make clean && make"
-  cwd '/home/' + node['moodle']['user'] + '/www/webgrind'
+  cwd '/var/www/webgrind'
 end
 
 # Create site for webgrind.
-template "/etc/apache2/sites-available/webgrind.conf" do
-  source "vhost.conf.erb"
+template "/etc/nginx/sites-enabled/webgrind" do
+  source "server.conf.erb"
   owner "root"
   group "root"
   mode 0644
   variables ({
     :server_name => 'webgrind.dev',
-    :docroot => '/home/' + node['moodle']['user'] + '/www/webgrind',
-    :name => 'webgrind'
+    :docroot => '/var/www/webgrind'
   })
-end
-
-# Enable the webgrind site.
-execute "a2ensite webgrind.conf" do
-  command "sudo /usr/sbin/a2ensite webgrind.conf"
 end
 
 # Webgrind looks to /usr/local/bin/dot for dot.
@@ -284,7 +264,12 @@ end
 ###  END  ###
 #############
 
-# Very LAST, restart Apache.
-service 'apache2' do
+# Very LAST, restart our server.
+service 'nginx' do
   action :restart
 end
+
+service 'php7.0-fpm' do
+  action :restart
+end
+
