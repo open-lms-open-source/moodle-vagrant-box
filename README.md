@@ -14,3 +14,6 @@ This project is used to provision a base box that can be used for Moodle develop
 
 https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-nginx-in-ubuntu-16-04
 https://www.digitalocean.com/community/tutorials/how-to-install-linux-nginx-mysql-php-lemp-stack-in-ubuntu-16-04?utm_source=legacy_reroute
+https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-16-04
+https://help.ubuntu.com/community/LinuxFilesystemTreeOverview
+https://docs.moodle.org/31/en/Nginx
