@@ -11,7 +11,7 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Latest Ubuntu 16.04 box
-  config.vm.box = "ubuntu/xenial64"
+  config.vm.box = "bento/ubuntu-16.04"
 
   # Host manager plugin settings.  This updates /etc/hosts on guest and host.
   config.hostmanager.enabled = true

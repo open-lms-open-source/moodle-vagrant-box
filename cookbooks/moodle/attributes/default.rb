@@ -8,8 +8,8 @@
 #
 
 # The account details of the default user (EG: who you SSH in as).
-default['moodle']['user']  = 'ubuntu'
-default['moodle']['group'] = 'ubuntu'
+default['moodle']['user']  = 'vagrant'
+default['moodle']['group'] = 'vagrant'
 
 # Other packages to install.
 default['moodle']['packages'] = [
