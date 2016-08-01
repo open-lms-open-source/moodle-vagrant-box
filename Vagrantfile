@@ -4,11 +4,6 @@
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
 
-# Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-#   config.vm.provision "shell",
-#     inline: "sudo add-apt-repository ppa:ondrej/php"
-# end
-
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Latest Ubuntu 16.04 box
   config.vm.box = "bento/ubuntu-16.04"
@@ -33,10 +28,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
   config.vm.network "private_network", ip: "192.168.100.100"
-
-  # If true, then any SSH connections made will enable agent forwarding.
-  # Default value: false
-  config.ssh.forward_agent = true
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
@@ -80,6 +71,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #   # You may also specify custom JSON attributes:
   #   chef.json = { :mysql_password => "foo" }
   # end
+
+  # Example of adding a apt get repository.
+  # config.vm.provision "shell", inline: "sudo add-apt-repository ppa:ondrej/php"
 
   config.vm.provision :chef_solo do |chef|
     chef.add_recipe 'apt'
