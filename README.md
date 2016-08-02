@@ -18,15 +18,15 @@ Confirm VirtualBox version at the [Bento project](https://github.com/chef/bento)
 2. Upload the resulting `package.box` to Atlas.
 3. Tag the repository with the same version number used in Atlas.
 
-Example tag:
+Tag format `{OS Version}-{Box Version}`, EG:
 
-    $ git tag -a 1.0.0 -m "Release version 1.0.0"
-    $ git push origin 1.0.0
+    $ git tag -a 16.04-1.0.0 -m "Ubuntu 16.04 box version 1.0.0"
+    $ git push origin 16.04-1.0.0
 
 # Helpful links
 
 https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-nginx-in-ubuntu-16-04
-https://www.digitalocean.com/community/tutorials/how-to-install-linux-nginx-mysql-php-lemp-stack-in-ubuntu-16-04?utm_source=legacy_reroute
+https://www.digitalocean.com/community/tutorials/how-to-install-linux-nginx-mysql-php-lemp-stack-in-ubuntu-16-04
 https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-16-04
 https://help.ubuntu.com/community/LinuxFilesystemTreeOverview
 https://docs.moodle.org/31/en/Nginx
