@@ -25,9 +25,9 @@ Tag format `{OS Version}-{Box Version}`, EG:
 
 # Helpful links
 
-https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-nginx-in-ubuntu-16-04
-https://www.digitalocean.com/community/tutorials/how-to-install-linux-nginx-mysql-php-lemp-stack-in-ubuntu-16-04
-https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-16-04
-https://help.ubuntu.com/community/LinuxFilesystemTreeOverview
-https://docs.moodle.org/31/en/Nginx
-https://scotch.io/tutorials/how-to-create-a-vagrant-base-box-from-an-existing-one
+* [Create self signed certificate](https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-nginx-in-ubuntu-16-04)
+* [LEMP](https://www.digitalocean.com/community/tutorials/how-to-install-linux-nginx-mysql-php-lemp-stack-in-ubuntu-16-04)
+* [Nginx](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-16-04)
+* [Moodle Nginx](https://docs.moodle.org/31/en/Nginx)
+* [Filesystem](https://help.ubuntu.com/community/LinuxFilesystemTreeOverview)
+* [Tutorial on making base box](https://scotch.io/tutorials/how-to-create-a-vagrant-base-box-from-an-existing-one)
