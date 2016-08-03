@@ -15,7 +15,7 @@ Confirm VirtualBox version at the [Bento project](https://github.com/chef/bento)
 # Package
 
 1. Run `./package.sh`
-2. Upload the resulting `package.box` to Atlas.
+2. Upload the resulting `package.box` to [Atlas](https://atlas.hashicorp.com/moodlerooms).
 3. Tag the repository with the same version number used in Atlas.
 
 Tag format `{OS Version}-{Box Version}`, EG:
