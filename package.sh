@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
-set -ev
+set -e
+
+# Remove previously created box.
+if [ -f package.box ]; then
+    rm package.box
+    echo "Deleted package.box"
+fi
+
+set -x
 
 vagrant destroy
 vagrant up
