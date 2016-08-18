@@ -14,6 +14,7 @@ default['moodle']['group'] = 'vagrant'
 # Other packages to install.
 default['moodle']['packages'] = [
   'curl',                     # Used to download composer.
+  'clamav',                   # For Anti-virus in Moodle file uploads.
   'ghostscript',              # Ghostscript: for PDF annotation in Moodle.
   'unoconv',                  # For grading assignments in Moodle.
   'graphviz',                 # Graphing tool used by webgrind and xhprof.
