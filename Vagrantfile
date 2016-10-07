@@ -82,7 +82,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # chef.add_recipe 'postgresql::server'
     chef.add_recipe 'openssl::upgrade'
     chef.add_recipe 'php'
-    chef.add_recipe 'memcached'
     chef.add_recipe 'redisio'
     chef.add_recipe 'redisio::enable'
     chef.add_recipe 'git'

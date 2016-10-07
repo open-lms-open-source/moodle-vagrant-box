@@ -39,8 +39,6 @@ default['moodle']['php']['packages'] = [
   'php-ldap',
   'php-mbstring',
   'php-mcrypt',
-  'php-memcache',
-  'php-memcached',
   'php-mysql',
   'php-pgsql',
   'php-pspell',
