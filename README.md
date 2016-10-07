@@ -7,8 +7,8 @@ This project is used to provision a base box that can be used for Moodle develop
 Confirm VirtualBox version at the [Bento project](https://github.com/chef/bento).
 
 1. Install the [Chef Development Kit](https://downloads.chef.io/chef-dk/)
-2. Install Vagrant from [vagrantup.com](http://vagrantup.com).  The recommended and tested version is `1.8.4`.
-3. Install VirtualBox from [virtualbox.org](http://virtualbox.org).  The recommended and tested version is `5.0.26`.
+2. Install Vagrant from [vagrantup.com](http://vagrantup.com).  The recommended and tested version is `1.8.6`.
+3. Install VirtualBox from [virtualbox.org](http://virtualbox.org).  The recommended and tested version is `5.1.6`.
 4. Install Vagrant Plugins: `vagrant plugin install vagrant-hostmanager vagrant-berkshelf`
 5. Open your terminal and from within this project, run: `vagrant up`
 
@@ -22,6 +22,11 @@ Tag format `{OS Version}-{Box Version}`, EG:
 
     $ git tag -a 16.04-1.0.0 -m "Ubuntu 16.04 box version 1.0.0"
     $ git push origin 16.04-1.0.0
+
+# Update cookbooks
+
+1. Update versions in `Berksfile`.
+2. Run `berks update` which will update the `Berksfile.lock`.
 
 # Helpful links
 

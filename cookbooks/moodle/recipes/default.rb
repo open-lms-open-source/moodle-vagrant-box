@@ -50,18 +50,6 @@ cookbook_file "/etc/nginx/snippets/ssl-params.conf" do
   mode 0644
 end
 
-# Run php-fpm as our user and group.
-ruby_block "Change php-fpm user and group" do
-  block do
-    file = Chef::Util::FileEdit.new("/etc/php/7.0/fpm/pool.d/www.conf")
-    file.search_file_replace_line(/user = www-data/,"user = "+node['moodle']['user'])
-    file.search_file_replace_line(/group = www-data/,"group = "+node['moodle']['group'])
-    file.search_file_replace_line(/listen.owner = www-data/,"listen.owner = "+node['moodle']['user'])
-    file.search_file_replace_line(/listen.group = www-data/,"listen.group = "+node['moodle']['group'])
-    file.write_file
-  end
-end
-
 # Run Nginx as our user.
 ruby_block "Change nginx user" do
   block do
@@ -69,6 +57,15 @@ ruby_block "Change nginx user" do
     file.search_file_replace_line(/user www-data;/,"user "+node['moodle']['user']+";")
     file.write_file
   end
+end
+
+# Install php-fpm.
+php_fpm_pool "default" do
+  action :install
+  user "vagrant"
+  group "vagrant"
+  listen_user "vagrant"
+  listen_group "vagrant"
 end
 
 #######################
