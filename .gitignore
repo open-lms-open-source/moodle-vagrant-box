@@ -1,4 +1,4 @@
 .vagrant
 /www/*
 !/www/.gitkeep
-package.box
+*.box
