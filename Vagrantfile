@@ -90,7 +90,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.add_recipe 'redisio::enable'
     chef.add_recipe 'git'
     chef.add_recipe 'moodle'
-    #chef.add_recipe 'chef-mailcatcher'
     chef.json = {
       :postgresql => {
         :config   => {
