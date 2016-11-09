@@ -23,7 +23,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network "forwarded_port", guest: 3306, host: 3306
 
   # Forward port for PostgreSQL
-  # config.vm.network "forwarded_port", guest: 5432, host: 5432
+  config.vm.network "forwarded_port", guest: 5432, host: 5432
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
@@ -75,11 +75,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Example of adding a apt get repository.
   # config.vm.provision "shell", inline: "sudo add-apt-repository ppa:ondrej/php"
 
+  # Prior to provisioning, install and set UTF-8 encoding.
+  # This is actually so Postgres will create a proper default database template.
+  config.vm.provision "shell", privileged: false, inline: "sudo locale-gen en_US.UTF-8"
+  config.vm.provision "shell", privileged: false, inline: "sudo update-locale LANG=en_US.UTF-8"
+
   config.vm.provision :chef_solo do |chef|
     chef.add_recipe 'apt'
     chef.add_recipe 'build-essential'
-    # Need https://github.com/hw-cookbooks/postgresql/pull/353
-    # chef.add_recipe 'postgresql::server'
+    chef.add_recipe 'postgresql::server'
     chef.add_recipe 'openssl::upgrade'
     chef.add_recipe 'php'
     chef.add_recipe 'redisio'
@@ -89,33 +93,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     #chef.add_recipe 'chef-mailcatcher'
     chef.json = {
       :postgresql => {
-        # :version => "9.5",
         :config   => {
           :listen_addresses => "*",
-          # :port             => "5432"
         },
         :pg_hba   => [
-          {
-            :type   => "local",
-            :db     => "postgres",
-            :user   => "postgres",
-            :addr   => nil,
-            :method => "trust"
-          },
-          {
-            :type   => "host",
-            :db     => "all",
-            :user   => "all",
-            :addr   => "0.0.0.0/0",
-            :method => "md5"
-          },
-          {
-            :type   => "host",
-            :db     => "all",
-            :user   => "all",
-            :addr   => "::1/0",
-            :method => "md5"
-          }
+          { type: 'local', db: 'all', user: 'postgres', addr: nil, method: 'trust' },
+          { type: 'local', db: 'all', user: 'all', addr: nil, method: 'ident' },
+          { type: 'host', db: 'all', user: 'all', addr: '0.0.0.0/0', method: 'md5' },
+          { type: 'host', db: 'all', user: 'all', addr: '127.0.0.1/32', method: 'md5' },
+          { type: 'host', db: 'all', user: 'all', addr: '::1/128', method: 'md5' }
         ],
         :password => {
           :postgres => "root"

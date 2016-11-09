@@ -40,7 +40,7 @@ default['moodle']['php']['packages'] = [
   'php-mbstring',
   'php-mcrypt',
   'php-mysql',
-  # 'php-pgsql', Removed until Postgres support is re-added.
+  'php-pgsql',
   'php-pspell',
   'php-redis',
   'php-soap',
