@@ -100,7 +100,7 @@ end
 #######################
 
 # Add custom PHP ini settings.
-template "/etc/php/7.0/mods-available/moodle.ini" do
+template "/etc/php/7.1/mods-available/moodle.ini" do
   source "php.ini.erb"
   owner "root"
   group "root"
@@ -271,7 +271,7 @@ service 'nginx' do
   action :restart
 end
 
-service 'php7.0-fpm' do
+service 'php7.1-fpm' do
   action :restart
 end
 

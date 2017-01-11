@@ -72,15 +72,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #   chef.json = { :mysql_password => "foo" }
   # end
 
-  # Example of adding a apt get repository.
-  # config.vm.provision "shell", inline: "sudo add-apt-repository ppa:ondrej/php"
-
-  # Prior to provisioning, install and set UTF-8 encoding.
-  # This is actually so Postgres will create a proper default database template.
-  config.vm.provision "shell", privileged: false, inline: "sudo locale-gen en_US.UTF-8"
-  config.vm.provision "shell", privileged: false, inline: "sudo update-locale LANG=en_US.UTF-8"
-
   config.vm.provision :chef_solo do |chef|
+    chef.add_recipe 'moodle::preinstall'
     chef.add_recipe 'apt'
     chef.add_recipe 'build-essential'
     chef.add_recipe 'postgresql::server'
@@ -91,6 +84,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.add_recipe 'git'
     chef.add_recipe 'moodle'
     chef.json = {
+      :php => {
+        :version          => '7.1.0',
+        :conf_dir         => '/etc/php/7.1/cli',
+        :packages         => %w(php7.1-cgi php7.1 php7.1-dev php7.1-cli),
+        :fpm_package      => 'php7.1-fpm',
+        :fpm_pooldir      => '/etc/php/7.1/fpm/pool.d',
+        :fpm_service      => 'php7.1-fpm',
+        :fpm_socket       => '/var/run/php/php7.1-fpm.sock',
+        :fpm_default_conf => '/etc/php/7.1/fpm/pool.d/www.conf',
+        :ext_conf_dir     => '/etc/php/7.1/mods-available',
+      },
       :postgresql => {
         :config   => {
           :listen_addresses => "*",
