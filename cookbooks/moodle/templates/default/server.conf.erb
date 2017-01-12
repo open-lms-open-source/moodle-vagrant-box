@@ -21,6 +21,9 @@ server {
 
     server_name <%= @server_name %>;
 
+    # Preserve the etag - X-Accel removes these.
+    add_header Etag $upstream_http_etag;
+
     location / {
         try_files $uri $uri/ =404;
     }
