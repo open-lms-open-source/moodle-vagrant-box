@@ -185,7 +185,7 @@ end
 # Grab the webgrind code.
 git '/var/www/webgrind' do
   repository "https://github.com/jokkedk/webgrind.git"
-  revision "v1.4.0"
+  revision "master" # Use master until something newer than v1.4.0 is released.
 end
 
 # Compile the preprocessor to improve performance.
