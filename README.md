@@ -28,6 +28,19 @@ Tag format `{OS Version}-{Box Version}`, EG:
 1. Update versions in `Berksfile`.
 2. Run `berks update` which will update the `Berksfile.lock`.
 
+# Update base box
+
+Look for new versions of the base box on [Atlas](https://atlas.hashicorp.com/bento/boxes/ubuntu-16.04).
+Note that in the version description, there is a dump about the versions of VirtualBox and Vagrant that
+were used to build the box.  We should match those versions.
+
+To get the new base box:
+
+    $ vagrant box update
+    $ vagrant box prune
+
+Then rebuild the box.
+
 # Helpful links
 
 * [Create self signed certificate](https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-nginx-in-ubuntu-16-04)
