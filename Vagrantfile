@@ -73,6 +73,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # end
 
   config.vm.provision :chef_solo do |chef|
+    chef.version = '12.19.36' # This is due to redisio not being compatible with Chef 13.
     chef.add_recipe 'moodle::preinstall'
     chef.add_recipe 'apt'
     chef.add_recipe 'build-essential'
