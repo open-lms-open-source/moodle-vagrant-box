@@ -128,8 +128,9 @@ end
 
 # Create an error log for PHP.
 file "/var/log/php_errors.log" do
-  owner "root"
-  group "root"
+  owner "vagrant"
+  group "vagrant"
+  action :touch
   mode 0666
 end
 
@@ -257,7 +258,7 @@ end
 # Install NPM packages.
 node['moodle']['npm']['packages'].each do |bin,pkg|
   execute "npm install " + pkg do
-    command "sudo /usr/bin/npm install -g --progress=false " + pkg
+    command "sudo /usr/bin/npm install -g --no-progress " + pkg
     not_if "which " + bin
   end
 end

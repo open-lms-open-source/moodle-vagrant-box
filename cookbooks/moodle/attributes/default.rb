@@ -28,6 +28,7 @@ default['moodle']['packages'] = [
   'chromium-chromedriver',    # For Behat, installs /usr/lib/chromium-browser/chromedriver
   'nginx',                    # Our web server.
   'nmon',                     # Performance monitoring tool.
+  'php-phpdbg',               # PHP debugging and code coverage tool.
 ]
 
 # PHP specific packages to install.
