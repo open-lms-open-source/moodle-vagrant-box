@@ -12,10 +12,9 @@ you do not need to read any further.
 # Setup
 
 1. Install the [Chef Development Kit](https://downloads.chef.io/chef-dk/)
-2. Install Vagrant from [vagrantup.com](http://vagrantup.com).  The recommended and tested version is `1.9.3`.
-3. Install VirtualBox from [virtualbox.org](http://virtualbox.org).  The recommended and tested version is `5.1.20`.
-4. Install Vagrant Plugins: `vagrant plugin install vagrant-hostmanager vagrant-berkshelf`
-5. To build the box, open your terminal and from within this project, run: `vagrant up`
+2. Install recommended versions of Vagrant and VirtualBox for the [latest box release on Atlas](https://atlas.hashicorp.com/moodlerooms/boxes/ubuntu-16.04-moodle-dev).
+3. Install Vagrant Plugins: `vagrant plugin install vagrant-hostmanager vagrant-berkshelf`
+4. To build the box, open your terminal and from within this project, run: `vagrant up`
 
 # Package
 
