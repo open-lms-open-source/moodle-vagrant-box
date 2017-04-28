@@ -5,7 +5,7 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  # Latest Ubuntu 16.04 box
+  # Latest Ubuntu 16.04 box.
   config.vm.box = "bento/ubuntu-16.04"
 
   # Host manager plugin settings.  This updates /etc/hosts on guest and host.
@@ -16,61 +16,22 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Berkshelf plugin settings.
   config.berkshelf.enabled = true
 
-  # Create a forwarded port mapping which allows access to a specific port
-  # within the machine from a port on the host machine.
-
-  # Forward port for MySQL
+  # Forward port for MySQL.
   config.vm.network "forwarded_port", guest: 3306, host: 3306
 
-  # Forward port for PostgreSQL
+  # Forward port for PostgreSQL.
   config.vm.network "forwarded_port", guest: 5432, host: 5432
 
-  # Create a private network, which allows host-only access to the machine
-  # using a specific IP.
+  # Create a private network, which allows host-only access to the machine using a specific IP.
   config.vm.network "private_network", ip: "192.168.100.100"
 
-  # Share an additional folder to the guest VM. The first argument is
-  # the path on the host to the actual folder. The second argument is
-  # the path on the guest to mount the folder. And the optional third
-  # argument is a set of non-required options.
-
-  # Mount current directory to the /vagrant directory in the VM
+  # Mount current directory to the /vagrant directory in the VM.
   config.vm.synced_folder ".", "/vagrant", type: "nfs"
-
-  # Provider-specific configuration so you can fine-tune various
-  # backing providers for Vagrant. These expose provider-specific options.
-  # Example for VirtualBox:
-  #
-  # config.vm.provider "virtualbox" do |vb|
-  #   # Don't boot with headless mode
-  #   vb.gui = true
-  #
-  #   # Use VBoxManage to customize the VM. For example to change memory:
-  #   vb.customize ["modifyvm", :id, "--memory", "1024"]
-  # end
-  #
-  # View the documentation for the provider you're using for more
-  # information on available options.
 
   config.vm.provider "virtualbox" do |vb|
     vb.customize ["modifyvm", :id, "--memory", "8192"]
     vb.customize ["modifyvm", :id, "--name", "moodle-vagrant-box"]
   end
-
-  # Enable provisioning with chef solo, specifying a cookbooks path, roles
-  # path, and data_bags path (all relative to this Vagrantfile), and adding
-  # some recipes and/or roles.
-  #
-  # config.vm.provision "chef_solo" do |chef|
-  #   chef.cookbooks_path = "../my-recipes/cookbooks"
-  #   chef.roles_path = "../my-recipes/roles"
-  #   chef.data_bags_path = "../my-recipes/data_bags"
-  #   chef.add_recipe "mysql"
-  #   chef.add_role "web"
-  #
-  #   # You may also specify custom JSON attributes:
-  #   chef.json = { :mysql_password => "foo" }
-  # end
 
   config.vm.provision :chef_solo do |chef|
     chef.version = '12.19.36' # This is due to redisio not being compatible with Chef 13.

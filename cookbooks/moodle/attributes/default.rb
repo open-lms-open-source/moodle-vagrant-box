@@ -2,10 +2,7 @@
 # Cookbook Name:: moodle
 # Attributes file
 #
-# Copyright 2016, Moodlerooms, Inc.
-#
-# All rights reserved - Do Not Redistribute
-#
+# Copyright 2017 Blackboard Inc. (http://www.blackboard.com)
 
 # The account details of the default user (EG: who you SSH in as).
 default['moodle']['user']  = 'vagrant'

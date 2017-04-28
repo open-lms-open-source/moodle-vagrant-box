@@ -18,4 +18,3 @@ contribution accepted:
 * Only one pull request per feature or fix.
 * Send coherent history by making sure each individual commit in your pull request is meaningful. Use interactive
   rebase to squash intermediate commits.
-* Ensure that [read me](README.md) and [change log](CHANGELOG.md) are updated as needed.

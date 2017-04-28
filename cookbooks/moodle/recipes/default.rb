@@ -2,10 +2,7 @@
 # Cookbook Name:: moodle
 # Recipe:: default
 #
-# Copyright 2014, Moodlerooms, Inc.
-#
-# All rights reserved - Do Not Redistribute
-#
+# Copyright 2017 Blackboard Inc. (http://www.blackboard.com)
 
 ##########################
 ###  INSTALL PACKAGES  ###

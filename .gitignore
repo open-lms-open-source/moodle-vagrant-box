@@ -2,3 +2,4 @@
 /www/*
 !/www/.gitkeep
 *.box
+.idea
