@@ -131,6 +131,7 @@ file "/var/log/php_errors.log" do
   mode 0666
 end
 
+# Create a directory for profiles.
 directory '/srv/xdebug-profiles' do
   owner node['moodle']['user']
   group node['moodle']['group']
@@ -141,7 +142,7 @@ end
 ###  MOODLE SITE  ###
 #####################
 
-# Create default site for Moodle.  Allow for customization by not overriding.
+# Create default site for Moodle.
 template "/etc/nginx/sites-enabled/moodle" do
   source "server.conf.erb"
   owner "root"
