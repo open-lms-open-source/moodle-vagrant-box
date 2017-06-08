@@ -30,6 +30,7 @@ default['moodle']['packages'] = [
 
 # PHP specific packages to install.
 default['moodle']['php']['packages'] = [
+  'php-bcmath',
   'php-curl',
   'php-gd',
   'php-imagick',
@@ -38,11 +39,13 @@ default['moodle']['php']['packages'] = [
   'php-ldap',
   'php-mbstring',
   'php-mcrypt',
+  'php-mhash',
   'php-mysql',
   'php-pgsql',
   'php-pspell',
   'php-redis',
   'php-soap',
+  'php-ssh2',
   'php-xdebug',
   'php-xmlrpc',
   'php-zip'
@@ -56,6 +59,5 @@ default['moodle']['php']['ini'] = {
 # NPM packages to install.
 default['moodle']['npm']['packages'] = {
   :grunt   => 'grunt-cli',
-  :jshint  => 'jshint',
-  :csslint => 'csslint',
+  :vnujar  => 'vnu-jar@">=17.3.0 <18.0.0"',
 }
