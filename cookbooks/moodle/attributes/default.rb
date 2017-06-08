@@ -10,7 +10,7 @@ default['moodle']['group'] = 'vagrant'
 
 # Other packages to install.
 default['moodle']['packages'] = [
-  'curl',                     # Used to download composer.
+  'curl',                     # Used for downloads.
   'clamav',                   # For Anti-virus in Moodle file uploads.
   'ghostscript',              # Ghostscript: for PDF annotation in Moodle.
   'unoconv',                  # For grading assignments in Moodle.
@@ -26,6 +26,7 @@ default['moodle']['packages'] = [
   'nginx',                    # Our web server.
   'nmon',                     # Performance monitoring tool.
   'php-phpdbg',               # PHP debugging and code coverage tool.
+  'mysql-server',             # MySQL.
 ]
 
 # PHP specific packages to install.
@@ -39,7 +40,6 @@ default['moodle']['php']['packages'] = [
   'php-ldap',
   'php-mbstring',
   'php-mcrypt',
-  'php-mhash',
   'php-mysql',
   'php-pgsql',
   'php-pspell',

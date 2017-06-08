@@ -69,13 +69,23 @@ end
 ###  INSTALL MYSQL  ###
 #######################
 
-# This configures MySQL and is from the mysql cookbook.
-mysql_service 'default' do
-  version '5.7'
-  port '3306'
-  bind_address '0.0.0.0'
-  initial_root_password 'root'
-  action [:create, :start]
+# Copy our SQL file to tmp.
+cookbook_file "/tmp/install.sql" do
+  source "install.sql"
+  owner "root"
+  group "root"
+  mode 0644
+end
+
+# Run our SQL file, it fixes root user and secures the MySQL install.
+execute "MySQL setup" do
+  command "sudo mysql < /tmp/install.sql"
+  not_if 'test -f /etc/mysql/conf.d/moodle.cnf'
+end
+
+# Cleanup.
+file "/tmp/install.sql" do
+  action :delete
 end
 
 # Add extra MySQL configs to run Moodle.
@@ -84,12 +94,15 @@ cookbook_file "/etc/mysql/conf.d/moodle.cnf" do
   owner "root"
   group "root"
   mode 0644
-  notifies :restart, 'mysql_service[default]'
 end
 
-# This makes SQL accessible from the outside for MySQL clients, etc.
-execute "Grant SQL" do
-  command "mysql -u root --password=root -h 127.0.0.1 -e \"GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT OPTION;\""
+# Bind MySQL to 0.0.0.0 to allow outside connections.
+ruby_block "MySQL Bind Address" do
+  block do
+    file = Chef::Util::FileEdit.new("/etc/mysql/mysql.conf.d/mysqld.cnf")
+    file.search_file_replace_line(/bind-address\W+=\W+127\.0\.0\.1/,"bind-address = 0.0.0.0")
+    file.write_file
+  end
 end
 
 #######################
@@ -261,9 +274,52 @@ node['moodle']['npm']['packages'].each do |bin,pkg|
   end
 end
 
+##########################
+###  Moodle Plugin CI  ###
+##########################
+
+# Create $HOME/.local/bin directory.
+directory '/home/vagrant/.local' do
+  owner node['moodle']['user']
+  group node['moodle']['group']
+  mode 0775
+end
+
+directory '/home/vagrant/.local/bin' do
+  owner node['moodle']['user']
+  group node['moodle']['group']
+  mode 0775
+end
+
+# Install moodle-plugin-ci.phar.
+# The command does the following:
+#   1. Downloads the latest release page HTML.
+#   2. Greps the HTML for the download URL fragment.
+#   3. Downloads the found URL.
+execute "Download latest moodle-plugin-ci.phar" do
+  command "curl -LsS https://github.com/moodlerooms/moodle-plugin-ci/releases/latest | egrep -o '/moodlerooms/moodle-plugin-ci/releases/download/[0-9\.]*/moodle-plugin-ci.phar' | wget --base=https://github.com -i - -O /home/vagrant/.local/bin/moodle-plugin-ci"
+  creates '/home/vagrant/.local/bin/moodle-plugin-ci'
+end
+
+# Make it executable.
+file '/home/vagrant/.local/bin/moodle-plugin-ci' do
+  owner node['moodle']['user']
+  group node['moodle']['group']
+  mode 0775
+end
+
 #############
 ###  END  ###
 #############
+
+# Clam has a background process that eats CPU.
+service 'clamav-freshclam' do
+  action [:stop, :disable]
+end
+
+service 'mysql' do
+  action :restart
+end
 
 # Very LAST, restart our server.
 service 'nginx' do

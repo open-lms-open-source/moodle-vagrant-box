@@ -1,7 +1,6 @@
 source "https://supermarket.chef.io"
 
 cookbook 'apt', '~> 6.1.0'
-cookbook 'mysql', '~> 8.3.1'
 cookbook 'postgresql', '~> 6.1.1'
 cookbook 'php', '~> 4.0.0'
 cookbook 'openssl', '~> 7.0.1'
