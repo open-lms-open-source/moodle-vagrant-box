@@ -308,6 +308,21 @@ file '/home/vagrant/.local/bin/moodle-plugin-ci' do
   mode 0775
 end
 
+###############
+###  Redis  ###
+###############
+
+# Update Redis config so it acts like a cache store.
+ruby_block "Update Redis Config" do
+  block do
+    file = Chef::Util::FileEdit.new("/etc/redis/redis.conf")
+    file.insert_line_if_no_match("/maxmemory 256mb/", "maxmemory 256mb")
+    file.insert_line_if_no_match("/maxmemory-policy allkeys-lru/", "maxmemory-policy allkeys-lru")
+    file.write_file
+  end
+  not_if 'sudo grep -q "maxmemory 256mb" /etc/redis/redis.conf'
+end
+
 #############
 ###  END  ###
 #############
@@ -317,11 +332,15 @@ service 'clamav-freshclam' do
   action [:stop, :disable]
 end
 
+# Restart servers at the end.
 service 'mysql' do
   action :restart
 end
 
-# Very LAST, restart our server.
+service 'redis' do
+  action :restart
+end
+
 service 'nginx' do
   action :restart
 end

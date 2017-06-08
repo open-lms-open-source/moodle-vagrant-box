@@ -14,7 +14,7 @@ default['moodle']['packages'] = [
   'clamav',                   # For Anti-virus in Moodle file uploads.
   'ghostscript',              # Ghostscript: for PDF annotation in Moodle.
   'unoconv',                  # For grading assignments in Moodle.
-  'graphviz',                 # Graphing tool used by webgrind and xhprof.
+  'graphviz',                 # Graphing tool used by webgrind.
   'nodejs',                   # For grunt-cli, etc.
   'nodejs-legacy',            # This is needed because shifter expects node, not nodejs.
   'npm',                      # For grunt-cli, etc.
@@ -27,6 +27,7 @@ default['moodle']['packages'] = [
   'nmon',                     # Performance monitoring tool.
   'php-phpdbg',               # PHP debugging and code coverage tool.
   'mysql-server',             # MySQL.
+  'redis-server',             # Redis.
 ]
 
 # PHP specific packages to install.
