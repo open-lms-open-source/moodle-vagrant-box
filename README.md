@@ -18,7 +18,7 @@ you do not need to read any further.
 
 # Package
 
-1. Run `./package.sh`
+1. Run `make` (or `make clean && make`)
 2. Upload the resulting `package.box` to [Atlas](https://atlas.hashicorp.com/moodlerooms).
 3. Tag the repository with the same version number used in Atlas.
 
