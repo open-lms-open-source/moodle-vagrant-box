@@ -10,6 +10,7 @@ default['moodle']['group'] = 'vagrant'
 
 # Other packages to install.
 default['moodle']['packages'] = [
+  'bash-completion',          # Was removed from base box.
   'curl',                     # Used for downloads.
   'clamav',                   # For Anti-virus in Moodle file uploads.
   'ghostscript',              # Ghostscript: for PDF annotation in Moodle.
