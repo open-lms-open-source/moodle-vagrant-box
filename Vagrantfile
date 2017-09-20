@@ -37,6 +37,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.add_recipe 'moodle::preinstall'
     chef.add_recipe 'apt'
     chef.add_recipe 'build-essential'
+    chef.add_recipe 'runit'
     chef.add_recipe 'postgresql::server'
     chef.add_recipe 'openssl::upgrade'
     chef.add_recipe 'php'

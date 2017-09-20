@@ -308,6 +308,26 @@ file '/home/vagrant/.local/bin/moodle-plugin-ci.phar' do
   mode 0775
 end
 
+#################
+###  MailHog  ###
+#################
+
+# Find download URL: https://github.com/mailhog/MailHog/releases
+# To make checksum, use: shasum -a 256 ~/Downloads/MailHog_linux_amd64.dms
+remote_file '/usr/local/bin/MailHog' do
+  source 'https://github.com/mailhog/MailHog/releases/download/v1.0.0/MailHog_linux_amd64'
+  checksum 'ba921e04438e176c474d533447ae64707ffcdd1230f0153f86cb188d348f25c0'
+  mode 0755
+  action :create
+end
+
+# Create a service to automatically run MailHog.
+runit_service 'mailhog' do
+  default_logger true
+  owner 'root'
+  group 'root'
+end
+
 ###############
 ###  Redis  ###
 ###############
