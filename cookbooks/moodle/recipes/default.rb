@@ -238,7 +238,7 @@ end
 ###############
 
 # Download Selenium Server.
-# WARNING: If Selenium file name is updated, also update files/default/behat-servers-start.sh
+# WARNING: If Selenium file name is updated, also update files/default/sv-selenium-run.erb
 remote_file '/usr/local/bin/selenium-server-standalone-2.53.1.jar' do
   source 'http://selenium-release.storage.googleapis.com/2.53/selenium-server-standalone-2.53.1.jar'
   owner node['moodle']['user']
@@ -246,20 +246,19 @@ remote_file '/usr/local/bin/selenium-server-standalone-2.53.1.jar' do
   mode 0755
 end
 
-# Copy in behat-servers-start command.
-cookbook_file "/usr/local/bin/behat-servers-start" do
-  source "behat-servers-start.sh"
-  owner node['moodle']['user']
-  group node['moodle']['group']
-  mode 0777
+# Create a service to automatically run Xvfb.
+runit_service 'xvfb' do
+  default_logger true
 end
 
-# Copy in behat-servers-stop command.
-cookbook_file "/usr/local/bin/behat-servers-stop" do
-  source "behat-servers-stop.sh"
-  owner node['moodle']['user']
-  group node['moodle']['group']
-  mode 0777
+# Create a service to automatically run Selenium.
+runit_service 'selenium' do
+  default_logger true
+end
+
+# Create a service to automatically run Chrome headless.
+runit_service 'chrome' do
+  default_logger true
 end
 
 #####################
