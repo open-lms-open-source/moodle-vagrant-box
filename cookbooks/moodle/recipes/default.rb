@@ -241,6 +241,7 @@ end
 # WARNING: If Selenium file name is updated, also update files/default/sv-selenium-run.erb
 remote_file '/usr/local/bin/selenium-server-standalone-2.53.1.jar' do
   source 'http://selenium-release.storage.googleapis.com/2.53/selenium-server-standalone-2.53.1.jar'
+  checksum '1cce6d3a5ca5b2e32be18ca5107d4f21bddaa9a18700e3b117768f13040b7cf8'
   owner node['moodle']['user']
   group node['moodle']['group']
   mode 0755
@@ -323,8 +324,6 @@ end
 # Create a service to automatically run MailHog.
 runit_service 'mailhog' do
   default_logger true
-  owner 'root'
-  group 'root'
 end
 
 ###############
