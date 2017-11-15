@@ -37,6 +37,14 @@ error_log = /var/log/php_errors.log
 max_input_vars = 5001
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; APCu http://php.net/manual/en/book.apcu.php   ;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; Note: this is usually disabled in production and
+; cached items do not persist between CLI executions.
+apc.enable_cli = 1
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; OPCache http://docs.moodle.org/en/OPcache     ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

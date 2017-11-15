@@ -32,6 +32,7 @@ default['moodle']['packages'] = [
 
 # PHP specific packages to install.
 default['moodle']['php']['packages'] = [
+  'php-apcu',
   'php-bcmath',
   'php-curl',
   'php-gd',
