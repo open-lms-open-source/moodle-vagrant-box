@@ -17,8 +17,6 @@ default['moodle']['packages'] = [
   'unoconv',                  # For grading assignments in Moodle.
   'graphviz',                 # Graphing tool used by webgrind.
   'nodejs',                   # For grunt-cli, etc.
-  'nodejs-legacy',            # This is needed because shifter expects node, not nodejs.
-  'npm',                      # For grunt-cli, etc.
   'default-jre-headless',     # For Behat.
   'xvfb',                     # For Behat.
   'firefox',                  # For Behat.

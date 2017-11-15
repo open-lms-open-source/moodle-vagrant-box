@@ -17,3 +17,9 @@ apt_repository 'google-chrome' do
   components %w(main)
   key 'https://dl-ssl.google.com/linux/linux_signing_key.pub'
 end
+
+# This is so NodeJS 8.9.X is install via apt-get.
+execute "Setup NodeJS 8" do
+  command "curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -"
+  not_if "which nodejs"
+end
