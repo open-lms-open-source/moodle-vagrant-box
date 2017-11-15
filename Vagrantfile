@@ -11,7 +11,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Host manager plugin settings.  This updates /etc/hosts on guest and host.
   config.hostmanager.enabled = true
   config.hostmanager.manage_host = true
-  config.hostmanager.aliases = %w(moodle.dev webgrind.dev core-moodle.dev)
+  config.hostmanager.aliases = %w(moodle.test webgrind.test core-moodle.test)
   
   # Berkshelf plugin settings.
   config.berkshelf.enabled = true

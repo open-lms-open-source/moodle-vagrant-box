@@ -20,7 +20,7 @@ end
 
 # Create self signed certificate for SSL support.
 openssl_x509 '/etc/ssl/certs/nginx-selfsigned.crt' do
-  common_name 'moodle.dev'
+  common_name 'moodle.test'
   org 'Blackboard'
   org_unit 'Moodlerooms'
   country 'US'
@@ -162,7 +162,7 @@ template "/etc/nginx/sites-enabled/moodle" do
   group "root"
   mode 0644
   variables ({
-    :server_name => 'moodle.dev *.vagrantshare.com',
+    :server_name => 'moodle.test *.vagrantshare.com',
     :docroot => '/vagrant/www/moodle'
   })
 end
@@ -185,7 +185,7 @@ template "/etc/nginx/sites-enabled/core-moodle" do
   group "root"
   mode 0644
   variables ({
-    :server_name => 'core-moodle.dev',
+    :server_name => 'core-moodle.test',
     :docroot => '/vagrant/www/core-moodle'
   })
 end
@@ -213,7 +213,7 @@ template "/etc/nginx/sites-enabled/webgrind" do
   group "root"
   mode 0644
   variables ({
-    :server_name => 'webgrind.dev',
+    :server_name => 'webgrind.test',
     :docroot => '/var/www/webgrind'
   })
 end
