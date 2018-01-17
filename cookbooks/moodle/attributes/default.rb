@@ -25,7 +25,7 @@ default['moodle']['packages'] = [
   'google-chrome-stable',     # For Behat.
   'nginx',                    # Our web server.
   'nmon',                     # Performance monitoring tool.
-  'php-phpdbg',               # PHP debugging and code coverage tool.
+  'php7.1-phpdbg',            # PHP debugging and code coverage tool.
   'mysql-server',             # MySQL.
   'redis-server',             # Redis.
   'unzip',                    # Only here for downloading Chrome Driver.
@@ -34,24 +34,25 @@ default['moodle']['packages'] = [
 # PHP specific packages to install.
 default['moodle']['php']['packages'] = [
   'php-apcu',
-  'php-bcmath',
-  'php-curl',
-  'php-gd',
+  'php7.1-bcmath',
+  'php7.1-curl',
+  'php7.1-gd',
   'php-imagick',
-  'php-imap',
-  'php-intl',
-  'php-ldap',
-  'php-mbstring',
-  'php-mcrypt',
-  'php-mysql',
-  'php-pgsql',
-  'php-pspell',
+  'php7.1-imap',
+  'php7.1-intl',
+  'php7.1-ldap',
+  'php7.1-mbstring',
+  'php7.1-mcrypt', # Deprecated.
+  'php7.1-mysql',
+  'php7.1-pgsql',
+  'php7.1-pspell',
   'php-redis',
-  'php-soap',
+  'php7.1-soap',
   'php-ssh2',
   'php-xdebug',
-  'php-xmlrpc',
-  'php-zip'
+  'php7.1-xml',
+  'php7.1-xmlrpc',
+  'php7.1-zip'
 ]
 
 # PHP ini configs that can be overridden.

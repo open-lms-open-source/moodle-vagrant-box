@@ -130,7 +130,10 @@ node['moodle']['php']['packages'].each do |pkg|
   end
 
   # Ensure the extension is enabled.
-  extensionName = pkg.gsub("php-", "")
+  extensionName = pkg.gsub(/php[\d\.]*-/, "")
+  if extensionName == "mysql"
+    extensionName = "mysqli" # The mysql package provides mysqli.
+  end
   execute "phpenmod " + extensionName do
     command "sudo /usr/sbin/phpenmod " + extensionName
   end
