@@ -12,7 +12,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.hostmanager.enabled = true
   config.hostmanager.manage_host = true
   config.hostmanager.aliases = %w(moodle.test webgrind.test core-moodle.test)
-  
+
   # Berkshelf plugin settings.
   config.berkshelf.enabled = true
 
