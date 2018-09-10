@@ -22,7 +22,7 @@ end
 openssl_x509 '/etc/ssl/certs/nginx-selfsigned.crt' do
   common_name 'moodle.test'
   org 'Blackboard'
-  org_unit 'Moodlerooms'
+  org_unit 'Open LMS'
   country 'US'
 end
 
@@ -324,7 +324,7 @@ end
 #   2. Greps the HTML for the download URL fragment.
 #   3. Downloads the found URL.
 execute "Download latest moodle-plugin-ci.phar" do
-  command "curl -LsS https://github.com/moodlerooms/moodle-plugin-ci/releases/latest | egrep -o '/moodlerooms/moodle-plugin-ci/releases/download/[0-9\.]*/moodle-plugin-ci.phar' | wget --base=https://github.com -i - -O /home/vagrant/.local/bin/moodle-plugin-ci.phar"
+  command "curl -LsS https://github.com/blackboard-open-source/moodle-plugin-ci/releases/latest | egrep -o '/blackboard-open-source/moodle-plugin-ci/releases/download/[0-9\.]*/moodle-plugin-ci.phar' | wget --base=https://github.com -i - -O /home/vagrant/.local/bin/moodle-plugin-ci.phar"
   creates '/home/vagrant/.local/bin/moodle-plugin-ci.phar'
 end
 

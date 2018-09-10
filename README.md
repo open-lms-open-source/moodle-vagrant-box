@@ -3,7 +3,7 @@
 This project is used to provision a base box that can be used for Moodle development.  This
 base box is built upon the boxes published by the [Bento project](https://github.com/chef/bento).
 
-This box is published to [Vagrant Cloud](https://app.vagrantup.com/moodlerooms).  You can
+This box is published to [Vagrant Cloud](https://app.vagrantup.com/blackboard-open-source).  You can
 use this box with Vagrant like any other box that's published on Atlas.
 
 The rest of this document is geared towards building this box, not how to use it.  So likely
@@ -12,14 +12,14 @@ you do not need to read any further.
 # Setup
 
 1. Install the [Chef Development Kit](https://downloads.chef.io/chef-dk/). Brew: `brew cask install chefdk`
-2. Install recommended versions of Vagrant and VirtualBox for the [latest box release on Vagrant Cloud](https://app.vagrantup.com/moodlerooms/boxes/ubuntu-16.04-moodle-dev).
+2. Install recommended versions of Vagrant and VirtualBox for the [latest box release on Vagrant Cloud](https://app.vagrantup.com/blackboard-open-source/boxes/ubuntu-16.04-moodle-dev).
 3. Install Vagrant Plugins: `vagrant plugin install vagrant-hostmanager vagrant-berkshelf`
 4. To build the box, open your terminal and from within this project, run: `vagrant up`
 
 # Package
 
 1. Run `make` (or `make clean && make`)
-2. Upload the resulting `package.box` to [Vagrant Cloud](https://app.vagrantup.com/moodlerooms).
+2. Upload the resulting `package.box` to [Vagrant Cloud](https://app.vagrantup.com/blackboard-open-source).
 3. Tag the repository with the same version number used in Atlas.
 
 Tag format `{OS Version}-{Box Version}`, EG:
