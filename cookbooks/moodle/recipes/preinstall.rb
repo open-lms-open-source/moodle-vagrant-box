@@ -10,6 +10,12 @@ apt_repository 'ondrej-php' do
   distribution 'xenial'
 end
 
+# Install latest version of git.
+apt_repository 'git-core-ppa' do
+  uri 'ppa:git-core/ppa'
+  distribution 'xenial'
+end
+
 apt_repository 'google-chrome' do
   arch 'amd64'
   uri 'http://dl.google.com/linux/chrome/deb'

@@ -10,7 +10,7 @@
 
 node['moodle']['packages'].each do |pkg|
   package pkg do
-    action :install
+    action :upgrade
   end
 end
 

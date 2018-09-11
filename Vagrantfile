@@ -1,10 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
-VAGRANTFILE_API_VERSION = "2"
-
-Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+Vagrant.configure("2") do |config|
   # Latest Ubuntu 16.04 box.
   config.vm.box = "bento/ubuntu-16.04"
 
@@ -41,7 +38,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.add_recipe 'postgresql::server'
     chef.add_recipe 'openssl::upgrade'
     chef.add_recipe 'php'
-    chef.add_recipe 'git'
     chef.add_recipe 'moodle'
     chef.json = {
       :php => {
