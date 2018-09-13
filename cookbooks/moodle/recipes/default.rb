@@ -250,30 +250,6 @@ remote_file '/usr/local/bin/selenium-server-standalone-2.53.1.jar' do
   mode 0755
 end
 
-# Install a newer version of Chrome Driver due to Chrome being version >= 62.
-remote_file '/usr/local/bin/chromedriver.zip' do
-  source 'https://chromedriver.storage.googleapis.com/2.33/chromedriver_linux64.zip'
-  checksum '87d0059ab1579ec9c10ef34ab9817feea59e19a96c029d78349a57c36db5bb74'
-  owner node['moodle']['user']
-  group node['moodle']['group']
-  mode 0755
-  not_if { ::File.exist?('/usr/local/bin/chromedriver') }
-end
-
-# Unzip Chrome Driver (deletes the zip).
-execute "Unzip Chrome Driver" do
-  cwd '/usr/local/bin'
-  command 'unzip chromedriver.zip && rm chromedriver.zip'
-  creates '/usr/local/bin/chromedriver'
-end
-
-# Ensure correct permissions and owner of Chrome Driver.
-file '/usr/local/bin/chromedriver' do
-  owner node['moodle']['user']
-  group node['moodle']['group']
-  mode 0755
-end
-
 # Create a service to automatically run Xvfb.
 runit_service 'xvfb' do
   default_logger true

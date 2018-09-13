@@ -29,7 +29,6 @@ default['moodle']['packages'] = [
   'php7.1-phpdbg',            # PHP debugging and code coverage tool.
   'mysql-server',             # MySQL.
   'redis-server',             # Redis.
-  'unzip',                    # Only here for downloading Chrome Driver.
 ]
 
 # PHP specific packages to install.
