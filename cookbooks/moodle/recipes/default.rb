@@ -110,7 +110,7 @@ end
 #######################
 
 # Add custom PHP ini settings.
-template "/etc/php/7.1/mods-available/moodle.ini" do
+template "/etc/php/7.2/mods-available/moodle.ini" do
   source "php.ini.erb"
   owner "root"
   group "root"
@@ -137,6 +137,24 @@ node['moodle']['php']['packages'].each do |pkg|
   execute "phpenmod " + extensionName do
     command "sudo /usr/sbin/phpenmod " + extensionName
   end
+end
+
+# Build mcrypt and enable it.
+execute 'mcrypt install' do
+  command "sudo /usr/bin/pecl channel-update pecl.php.net"
+  command "sudo /usr/bin/pecl install mcrypt-1.0.1"
+  not_if {::File.exists?('/usr/lib/php/20170718/mcrypt.so')}
+end
+
+file '/etc/php/7.2/mods-available/mcrypt.ini' do
+  content 'extension=mcrypt.so'
+  owner "root"
+  group "root"
+  mode 0644
+end
+
+execute 'mcrypt enable' do
+  command "sudo /usr/sbin/phpenmod mcrypt"
 end
 
 # Create an error log for PHP.
@@ -366,7 +384,7 @@ service 'nginx' do
   action :restart
 end
 
-service 'php7.1-fpm' do
+service 'php7.2-fpm' do
   action :restart
 end
 
