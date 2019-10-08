@@ -26,33 +26,35 @@ default['moodle']['packages'] = [
   'google-chrome-stable',     # For Behat.
   'nginx',                    # Our web server.
   'nmon',                     # Performance monitoring tool.
-  'php7.1-phpdbg',            # PHP debugging and code coverage tool.
+  'php7.2-phpdbg',            # PHP debugging and code coverage tool.
   'mysql-server',             # MySQL.
   'redis-server',             # Redis.
+  'libmcrypt-dev',            # For installing mcrypt.
+  'php-dev',                  # For installing mcrypt.
+  'php-pear',                 # For installing mcrypt.
 ]
 
 # PHP specific packages to install.
 default['moodle']['php']['packages'] = [
   'php-apcu',
-  'php7.1-bcmath',
-  'php7.1-curl',
-  'php7.1-gd',
+  'php7.2-bcmath',
+  'php7.2-curl',
+  'php7.2-gd',
   'php-imagick',
-  'php7.1-imap',
-  'php7.1-intl',
-  'php7.1-ldap',
-  'php7.1-mbstring',
-  'php7.1-mcrypt', # Deprecated.
-  'php7.1-mysql',
-  'php7.1-pgsql',
-  'php7.1-pspell',
+  'php7.2-imap',
+  'php7.2-intl',
+  'php7.2-ldap',
+  'php7.2-mbstring',
+  'php7.2-mysql',
+  'php7.2-pgsql',
+  'php7.2-pspell',
   'php-redis',
-  'php7.1-soap',
+  'php7.2-soap',
   'php-ssh2',
   'php-xdebug',
-  'php7.1-xml',
-  'php7.1-xmlrpc',
-  'php7.1-zip'
+  'php7.2-xml',
+  'php7.2-xmlrpc',
+  'php7.2-zip'
 ]
 
 # PHP ini configs that can be overridden.

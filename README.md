@@ -24,8 +24,8 @@ you do not need to read any further.
 
 Tag format `{OS Version}-{Box Version}`, EG:
 
-    $ git tag -a 16.04-1.0.0 -m "Ubuntu 16.04 box version 1.0.0"
-    $ git push origin 16.04-1.0.0
+    $ git tag -a 18.04-1.0.0 -m "Ubuntu 18.04 box version 1.0.0"
+    $ git push origin 18.04-1.0.0
 
 # Update cookbooks
 
