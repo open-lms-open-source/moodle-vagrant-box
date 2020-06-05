@@ -106,6 +106,18 @@ ruby_block "MySQL Bind Address" do
 end
 
 #######################
+###  POSTGRES FIX   ###
+#######################
+
+# We have to update the permissions for a postgres file or it won't work.
+# We can't use the new postgres chef project b/c it's incompatible with chef_solo.
+# See https://github.com/sous-chefs/postgresql/issues/574.
+execute "Update permissions on postgres file and reload" do
+  command "sudo chmod a+r /etc/postgresql/9.5/main/postgresql.conf"
+  command "sudo service postgresql restart"
+end
+
+#######################
 ###  CONFIGURE PHP  ###
 #######################
 
@@ -218,7 +230,7 @@ end
 # Grab the webgrind code.
 git '/var/www/webgrind' do
   repository "https://github.com/jokkedk/webgrind.git"
-  revision "master" # Use master until something newer than v1.4.0 is released.
+  revision "v1.7.0"
 end
 
 # Compile the preprocessor to improve performance.
