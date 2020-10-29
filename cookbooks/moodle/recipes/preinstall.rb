@@ -2,7 +2,13 @@
 # Cookbook Name:: moodle
 # Recipe:: default
 #
-# Copyright 2017 Blackboard Inc. (http://www.blackboard.com)
+# Copyright 2017 Open LMS. (https://www.openlms.net)
+
+# Add this so we can install PHP 7.4.
+apt_repository 'ondrej-php' do
+  uri 'ppa:ondrej/php'
+  distribution 'bionic'
+end
 
 # Install latest version of git.
 apt_repository 'git-core-ppa' do
