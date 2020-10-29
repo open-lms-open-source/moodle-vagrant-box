@@ -12,7 +12,7 @@ you do not need to read any further.
 # Setup
 
 1. Install the [Chef Development Kit](https://downloads.chef.io/chef-dk/).
-2. Install recommended versions of Vagrant and VirtualBox for the [latest box release on Vagrant Cloud](https://app.vagrantup.com/blackboard-open-source/boxes/ubuntu-16.04-moodle-dev).
+2. Install recommended versions of Vagrant and VirtualBox for the [latest box release on Vagrant Cloud](https://app.vagrantup.com/blackboard-open-source/boxes/ubuntu-18.04-moodle-dev).
 3. Install Vagrant Plugins: `vagrant plugin install vagrant-hostmanager vagrant-berkshelf`
 4. To build the box, open your terminal and from within this project, run: `vagrant up`
 
@@ -24,8 +24,8 @@ you do not need to read any further.
 
 Tag format `{OS Version}-{Box Version}`, EG:
 
-    $ git tag -a 18.04-1.0.0 -m "Ubuntu 18.04 box version 1.0.0"
-    $ git push origin 18.04-1.0.0
+    $ git tag -a 20.04-1.0.0 -m "Ubuntu 18.04 box version 1.0.0"
+    $ git push origin 20.04-1.0.0
 
 # Update cookbooks
 

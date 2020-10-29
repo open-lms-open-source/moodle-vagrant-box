@@ -2,7 +2,7 @@
 # Cookbook Name:: moodle
 # Recipe:: default
 #
-# Copyright 2017 Blackboard Inc. (http://www.blackboard.com)
+# Copyright 2017 Open LMS. (https://www.openlms.net)
 
 ##########################
 ###  INSTALL PACKAGES  ###
@@ -19,9 +19,9 @@ end
 ########################
 
 # Create self signed certificate for SSL support.
-openssl_x509 '/etc/ssl/certs/nginx-selfsigned.crt' do
+openssl_x509_certificate '/etc/ssl/certs/nginx-selfsigned.crt' do
   common_name 'moodle.test'
-  org 'Blackboard'
+  org 'LTG PLC'
   org_unit 'Open LMS'
   country 'US'
 end
@@ -122,7 +122,7 @@ end
 #######################
 
 # Add custom PHP ini settings.
-template "/etc/php/7.2/mods-available/moodle.ini" do
+template "/etc/php/7.4/mods-available/moodle.ini" do
   source "php.ini.erb"
   owner "root"
   group "root"
@@ -154,11 +154,11 @@ end
 # Build mcrypt and enable it.
 execute 'mcrypt install' do
   command "sudo /usr/bin/pecl channel-update pecl.php.net"
-  command "sudo /usr/bin/pecl install mcrypt-1.0.1"
-  not_if {::File.exists?('/usr/lib/php/20170718/mcrypt.so')}
+  command "sudo /usr/bin/pecl install mcrypt-1.0.3"
+  not_if {::File.exists?('/usr/lib/php/20190902/mcrypt.so')}
 end
 
-file '/etc/php/7.2/mods-available/mcrypt.ini' do
+file '/etc/php/7.4/mods-available/mcrypt.ini' do
   content 'extension=mcrypt.so'
   owner "root"
   group "root"
@@ -330,7 +330,7 @@ end
 #   2. Greps the HTML for the download URL fragment.
 #   3. Downloads the found URL.
 execute "Download latest moodle-plugin-ci.phar" do
-  command "curl -LsS https://github.com/blackboard-open-source/moodle-plugin-ci/releases/latest | egrep -o '/blackboard-open-source/moodle-plugin-ci/releases/download/[0-9\.]*/moodle-plugin-ci.phar' | wget --base=https://github.com -i - -O /home/vagrant/.local/bin/moodle-plugin-ci.phar"
+  command "curl -LsS https://github.com/open-lms-open-source/moodle-plugin-ci/releases/latest | egrep -o '/open-lms-open-source/moodle-plugin-ci/releases/download/[0-9\.]*/moodle-plugin-ci.phar' | wget --base=https://github.com -i - -O /home/vagrant/.local/bin/moodle-plugin-ci.phar"
   creates '/home/vagrant/.local/bin/moodle-plugin-ci.phar'
 end
 
@@ -396,7 +396,7 @@ service 'nginx' do
   action :restart
 end
 
-service 'php7.2-fpm' do
+service 'php7.4-fpm' do
   action :restart
 end
 

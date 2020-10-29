@@ -2,12 +2,12 @@
 # Cookbook Name:: moodle
 # Recipe:: default
 #
-# Copyright 2017 Blackboard Inc. (http://www.blackboard.com)
+# Copyright 2017 Open LMS. (https://www.openlms.net)
 
 # Install latest version of git.
 apt_repository 'git-core-ppa' do
   uri 'ppa:git-core/ppa'
-  distribution 'bionic'
+  distribution 'focal'
 end
 
 apt_repository 'google-chrome' do
@@ -18,8 +18,8 @@ apt_repository 'google-chrome' do
   key 'https://dl-ssl.google.com/linux/linux_signing_key.pub'
 end
 
-# This is so NodeJS 8.9.X is install via apt-get.
-execute "Setup NodeJS 8" do
-  command "curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -"
+# This is so NodeJS 14.0.X is install via apt-get.
+execute "Setup NodeJS 14.0" do
+  command "curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -"
   not_if "which nodejs"
 end

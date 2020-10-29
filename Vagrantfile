@@ -2,8 +2,8 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-  # Latest Ubuntu 18.04 box.
-  config.vm.box = "bento/ubuntu-18.04"
+  # Latest Ubuntu 20.04 box.
+  config.vm.box = "bento/ubuntu-20.04"
 
   # Host manager plugin settings.  This updates /etc/hosts on guest and host.
   config.hostmanager.enabled = true
@@ -37,20 +37,19 @@ Vagrant.configure("2") do |config|
     chef.add_recipe 'build-essential'
     chef.add_recipe 'runit'
     chef.add_recipe 'postgresql::server'
-    chef.add_recipe 'openssl::upgrade'
     chef.add_recipe 'php'
     chef.add_recipe 'moodle'
     chef.json = {
       :php => {
-        :version          => '7.2.19',
-        :conf_dir         => '/etc/php/7.2/cli',
-        :packages         => %w(php7.2-cgi php7.2 php7.2-dev php7.2-cli),
-        :fpm_package      => 'php7.2-fpm',
-        :fpm_pooldir      => '/etc/php/7.2/fpm/pool.d',
-        :fpm_service      => 'php7.2-fpm',
-        :fpm_socket       => '/var/run/php/php7.2-fpm.sock',
-        :fpm_default_conf => '/etc/php/7.2/fpm/pool.d/www.conf',
-        :ext_conf_dir     => '/etc/php/7.2/mods-available',
+        :version          => '7.4.3',
+        :conf_dir         => '/etc/php/7.4/cli',
+        :packages         => %w(php7.4-cgi php7.4 php7.4-dev php7.4-cli),
+        :fpm_package      => 'php7.4-fpm',
+        :fpm_pooldir      => '/etc/php/7.4/fpm/pool.d',
+        :fpm_service      => 'php7.4-fpm',
+        :fpm_socket       => '/var/run/php/php7.4-fpm.sock',
+        :fpm_default_conf => '/etc/php/7.4/fpm/pool.d/www.conf',
+        :ext_conf_dir     => '/etc/php/7.4/mods-available',
       },
       :postgresql => {
         :config   => {
