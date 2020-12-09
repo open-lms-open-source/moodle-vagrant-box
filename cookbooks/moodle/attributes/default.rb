@@ -32,6 +32,7 @@ default['moodle']['packages'] = [
   'libmcrypt-dev',            # For installing mcrypt.
   'php-dev',                  # For installing mcrypt.
   'php-pear',                 # For installing mcrypt.
+  'zip',                      # Zip and unzip binaries are sometimes used.
 ]
 
 # PHP specific packages to install.
